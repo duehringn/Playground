@@ -1,3 +1,10 @@
 * {
  background-color: #d2f2e8;
 }
+
+.navbar {
+ background-color: #798e88;
+ display: inline-block;
+ font-family: 'Helvetica';
+ font-size: 15px;
+}
