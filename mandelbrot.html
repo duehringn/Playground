@@ -7,8 +7,8 @@
                 
                 //canvas
                 const setCanvas = document.createElement('canvas');
-                setCanvas.width = 600;
-                setCanvas.height = 600;
+                setCanvas.width = 2560;
+                setCanvas.height = 1440;
                 document.body.appendChild(setCanvas);
                 const context = setCanvas.getContext('2d');
                 
@@ -20,7 +20,7 @@
                     
                     //iterations: modify to increase precision
                     //default: 350
-                    const maxIter = 350;
+                    const maxIter = 1000;
                     
                     //calculation loop
                     for (let i = 0; i < maxIter; i++) {
@@ -45,9 +45,9 @@
                 }
                 
                 //canvas settings
-                const magnification = 8500;
-                const panX = 0.8;
-                const panY = 0.4;
+                const magnification = 50000;
+                const panX = 0.71;
+                const panY = 0.355;
                 
                 //draw loop
                 //for all x, y value pairs of the canvas
@@ -68,7 +68,7 @@
                         //otherwise if the value is outside of the set
                         //color it based on how many iterations it took 
                         else {
-                            context.fillStyle = 'hs1(0, 100%, ${partOfSet}%)';
+                            context.fillStyle = 'hsl(0, 100%, ${partOfSet}%)';
                             
                             //color value red
                             context.fillRect(x, y, 1, 1);
