@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            
+            (() => {
+                
+                //canvas
+                const setCanvas = document.createElement('canvas');
+                setCanvas.width = 2560;
+                setCanvas.height = 1440;
+                document.body.appendChild(setCanvas);
+                const ctx = setCanvas.getContext('2d');
+                
+                //draw values
+                function checkMandelbrot(x, y) {
+                    
+                    let realPart = x;
+                    let imagPart = y;
+                    
+                    //iterations: modify to increase precision
+                    //default: 350
+                    const maxIter = 1200;
+                    
+                    //calculation loop
+                    for (let i = 0; i < maxIter; i++) {
+                        
+                        //calculate new values
+                        const realCalc = realPart * realPart - imagPart * imagPart + x;
+                        const imagCalc = 2.0 * realPart * imagPart + y;
+                        
+                        //update variables for next calculation
+                        realPart = realCalc;
+                        imagPart = imagCalc;
+                        
+                        //return the percentage of iterations/maxIter
+                        //determines how to color code the value
+                        if (realPart * imagPart > 5) {
+                            return (i/maxIter * 100);
+                        }
+                    }
+                    
+                    //otherwise return 0 since it's in the set
+                    return 0;
+                }
+                
+                //canvas settings
+                //default: 8500
+                const magnification = 50000;
+                //default: 0.8
+                const panX = 0.71;
+                //default: 0.4
+                const panY = 0.355;
+                
+                //draw loop
+                //for all x, y value pairs of the canvas
+                for (let x = 0; x < setCanvas.width; x++) {
+                    for (let y = 0; y < setCanvas.height; y++) {
+                        
+                        //check value
+                        const partOfSet = checkMandelbrot(x / magnification - panX, y/magnification - panY);
+                        
+                        //if the value is in the set
+                        if (partOfSet === 0) {
+                            
+                            ctx.fillStyle = '#000';
+                            
+                            //color value black
+                            ctx.fillRect(x, y, 1, 1);
+                        } 
+                        //otherwise if the value is outside of the set
+                        //color it based on how many iterations it took 
+                        else {
+                            
+                            ctx.fillStyle = `hsl(0, 100%, ${partOfSet}%)`;
+                            
+                            //color value red
+                            ctx.fillRect(x, y, 1, 1);
+                            
+                        }
+                    }
+                }
+            })();
+            
+        </script>
+    </body>
+</html>
